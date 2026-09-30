@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>World Ain't Ready — Roblox Games</title>
+    <meta name="description" content="Independent Roblox games from World Ain't Ready. New experiences in development." />
+    <meta name="theme-color" content="#000057" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://worldaintready.com/" />
+    <meta property="og:title" content="World Ain't Ready — Roblox Games" />
+    <meta property="og:description" content="Independent Roblox games. New experiences in development." />
+    <meta property="og:image" content="https://worldaintready.com/assets/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@200;400;700&family=Barlow+Condensed:wght@500;700&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --navy-deep: #000030;
+        --navy: #000057;
+        --blue: #0000f2;
+        --blue-dim: #000091;
+        --ink: #f2f2f2;
+        --ink-dim: rgba(242, 242, 242, 0.68);
+        --ink-faint: rgba(242, 242, 242, 0.2);
+        --display: "Antonio", "Arial Narrow", sans-serif;
+        --label: "Barlow Condensed", "Arial Narrow", sans-serif;
+        --mono: "VT323", ui-monospace, monospace;
+        --gutter: 16px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--navy-deep); -webkit-text-size-adjust: 100%; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--navy);
+        color: var(--ink);
+        font-family: var(--label);
+        font-weight: 500;
+        overflow-x: hidden;
+      }
+
+      /* VHS scanlines over everything */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 2px,
+          rgba(0, 0, 48, 0.28) 3px
+        );
+        mix-blend-mode: multiply;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+
+      .label {
+        font-family: var(--label);
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .mono { font-family: var(--mono); font-size: 20px; line-height: 1.15; }
+
+      /* ---------- header ---------- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: var(--navy);
+        border-bottom: 1px solid var(--ink-faint);
+        padding-top: env(safe-area-inset-top);
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+      }
+      .logo {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 0.9;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 0.01em;
+      }
+      .rec { display: flex; align-items: center; gap: 8px; color: var(--ink-dim); }
+      .rec .dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #ff2a2a;
+        animation: blink 1.2s steps(2, start) infinite;
+      }
+      @keyframes blink { to { visibility: hidden; } }
+
+      /* ---------- hero ---------- */
+      .hero { position: relative; overflow: hidden; background: var(--blue); }
+      .hero .wrap {
+        position: relative;
+        z-index: 2;
+        padding-top: 40px;
+        padding-bottom: 48px;
+      }
+      .art {
+        position: absolute;
+        right: -18%;
+        bottom: -4%;
+        width: 118%;
+        max-width: 640px;
+        image-rendering: pixelated;
+        mix-blend-mode: lighten;
+        opacity: 0.9;
+        z-index: 1;
+        pointer-events: none;
+      }
+      .art.glitch { animation: glitch 0.24s steps(3) 1; }
+      @keyframes glitch {
+        0%   { transform: translateX(0);     clip-path: inset(0 0 0 0); }
+        33%  { transform: translateX(-10px); clip-path: inset(22% 0 51% 0); }
+        66%  { transform: translateX(8px);   clip-path: inset(61% 0 12% 0); }
+        100% { transform: translateX(0);     clip-path: inset(0 0 0 0); }
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        font-family: var(--display);
+        font-weight: 200;
+        font-size: clamp(64px, 19vw, 168px);
+        line-height: 0.86;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+      }
+      h1 b { font-weight: 700; display: block; }
+      .lede { margin: 24px 0 0; max-width: 30ch; color: var(--ink); }
+      .lede span { color: var(--ink-dim); }
+
+      .ctas { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 18px;
+        font-family: var(--label);
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: 1px solid var(--ink);
+        border-radius: 0;
+        cursor: pointer;
+      }
+      .btn.solid { background: var(--ink); color: var(--blue); }
+      .btn.ghost { background: rgba(0, 0, 87, 0.5); color: var(--ink); }
+      .btn[aria-disabled="true"] {
+        border-color: var(--ink-faint);
+        color: var(--ink-dim);
+        background: transparent;
+        cursor: default;
+      }
+      .btn:not([aria-disabled="true"]):hover { filter: invert(1) hue-rotate(180deg); }
+
+      /* ---------- sections ---------- */
+      section.block { padding: 56px 0; border-top: 1px solid var(--ink-faint); scroll-margin-top: 60px; }
+      h2 {
+        margin: 12px 0 28px;
+        font-family: var(--display);
+        font-weight: 400;
+        font-size: clamp(44px, 12vw, 88px);
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      .games { display: grid; gap: 16px; grid-template-columns: 1fr; }
+      .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--navy-deep);
+        border: 1px solid var(--ink-faint);
+      }
+      .thumb {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--blue-dim);
+      }
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        image-rendering: pixelated;
+        display: block;
+      }
+      .thumb .stamp {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: var(--mono);
+        font-size: 26px;
+        letter-spacing: 0.1em;
+        background: rgba(0, 0, 48, 0.45);
+      }
+      .card-body { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; }
+      .card-top { display: flex; justify-content: space-between; gap: 12px; color: var(--ink-dim); }
+      .status { color: var(--ink); background: var(--blue); padding: 2px 6px; }
+      .card h3 {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 34px;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+      .card p { margin: 0; color: var(--ink-dim); font-size: 17px; line-height: 1.3; }
+      .card .btn { margin-top: auto; width: 100%; }
+
+      /* terminal link list */
+      .term { list-style: none; margin: 0; padding: 0; }
+      .term li { border-bottom: 1px solid var(--ink-faint); }
+      .term a, .term .off {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 52px;
+        text-decoration: none;
+      }
+      .term a:hover .name { text-decoration: underline; }
+      .term .off { color: var(--ink-dim); }
+      .term .tag { color: var(--ink-dim); }
+
+      footer { padding: 32px 0 calc(32px + env(safe-area-inset-bottom)); border-top: 1px solid var(--ink-faint); color: var(--ink-dim); }
+      footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+
+      /* ---------- wider screens ---------- */
+      @media (min-width: 760px) {
+        :root { --gutter: 32px; }
+        .bar { height: 72px; }
+        .logo { font-size: 20px; }
+        .hero .wrap { padding-top: 72px; padding-bottom: 96px; }
+        .art { right: 0; top: -6%; bottom: auto; width: auto; height: 112%; max-width: none; }
+        .lede { font-size: 24px; }
+        .games { grid-template-columns: repeat(3, 1fr); }
+        .term .mono { font-size: 24px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .rec .dot, .art.glitch { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap bar">
+        <a class="logo" href="#top">World<br />Ain't Ready</a>
+        <div class="rec mono"><span class="dot"></span><span>REC</span> <span id="clock">00:00:00</span></div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <img class="art" id="art" src="./assets/hero-dither.png" alt="" width="480" height="476" />
+        <div class="wrap">
+          <div class="label">// Roblox games</div>
+          <h1>The world <b>ain't ready</b></h1>
+          <p class="lede mono">&gt; independent roblox games.<br /><span>&gt; new worlds in development_</span></p>
+          <div class="ctas">
+            <a class="btn solid" href="#games">See the games</a>
+            <a class="btn ghost" data-link="roblox">Follow on Roblox</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="games">
+        <div class="wrap">
+          <div class="label">// Games</div>
+          <h2>In the lab</h2>
+          <div class="games" id="game-list"></div>
+        </div>
+      </section>
+
+      <section class="block" id="links">
+        <div class="wrap">
+          <div class="label">// Transmissions</div>
+          <h2>Stay tuned</h2>
+          <ul class="term" id="link-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap label">
+        <span>© <span id="year">2026</span> World Ain't Ready</span>
+        <span>Not affiliated with Roblox Corporation.</span>
+      </div>
+    </footer>
+
+    <script>
+      // ---- Edit these as projects go live. Empty url = shown as "soon". ----
+      const LINKS = [
+        { key: "roblox", name: "Roblox", url: "" },
+        { key: "discord", name: "Discord", url: "" },
+        { key: "tiktok", name: "TikTok", url: "" },
+        { key: "youtube", name: "YouTube", url: "" },
+      ];
+
+      // url: the game's roblox.com/games/... link. image: path to a thumbnail (16:9 works best).
+      const GAMES = [
+        { title: "Project 01", status: "In development", genre: "????", blurb: "Classified. Beta coming soon.", url: "", image: "" },
+        { title: "Project 02", status: "In development", genre: "????", blurb: "Classified. Beta coming soon.", url: "", image: "" },
+        { title: "Project 03", status: "Concept", genre: "????", blurb: "Something's loading.", url: "", image: "" },
+      ];
+      // ---------------------------------------------------------------------
+
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
+      document.getElementById("game-list").innerHTML = GAMES.map((g, i) => {
+        const img = g.image || "./assets/hero-dither.png";
+        const pos = ["30% 20%", "70% 65%", "40% 85%"][i % 3];
+        const cta = g.url
+          ? `<a class="btn solid" href="${esc(g.url)}" target="_blank" rel="noopener">Play on Roblox</a>`
+          : `<span class="btn" aria-disabled="true">Beta soon</span>`;
+        return `
+          <article class="card">
+            <div class="thumb">
+              <img src="${esc(img)}" alt="" loading="lazy" style="${g.image ? "" : `object-position:${pos};transform:scale(1.6)`}" />
+              ${g.image ? "" : `<div class="stamp">[ CLASSIFIED ]</div>`}
+            </div>
+            <div class="card-body">
+              <div class="card-top label"><span>${String(i + 1).padStart(2, "0")} / ${esc(g.genre)}</span><span class="status">${esc(g.status)}</span></div>
+              <h3>${esc(g.title)}</h3>
+              <p>${esc(g.blurb)}</p>
+              ${cta}
+            </div>
+          </article>`;
+      }).join("");
+
+      document.getElementById("link-list").innerHTML = LINKS.map((l) =>
+        l.url
+          ? `<li><a class="mono" href="${esc(l.url)}" target="_blank" rel="noopener"><span class="name">&gt; ${esc(l.name)}</span><span class="tag">↗</span></a></li>`
+          : `<li><span class="off mono"><span>&gt; ${esc(l.name)}</span><span class="tag">[soon]</span></span></li>`
+      ).join("");
+
+      document.querySelectorAll("[data-link]").forEach((a) => {
+        const link = LINKS.find((l) => l.key === a.dataset.link);
+        if (link && link.url) {
+          a.href = link.url;
+          a.target = "_blank";
+          a.rel = "noopener";
+        } else {
+          a.setAttribute("aria-disabled", "true");
+          a.textContent += " — soon";
+        }
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const clock = document.getElementById("clock");
+      const tick = () => (clock.textContent = new Date().toTimeString().slice(0, 8));
+      tick();
+      setInterval(tick, 1000);
+
+      // occasional VHS glitch on the hero art
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const art = document.getElementById("art");
+        const glitch = () => {
+          art.classList.remove("glitch");
+          void art.offsetWidth;
+          art.classList.add("glitch");
+          setTimeout(glitch, 2500 + Math.random() * 5000);
+        };
+        setTimeout(glitch, 2000);
+      }
+    </script>
+  </body>
+</html>

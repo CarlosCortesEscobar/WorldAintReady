@@ -2,68 +2,336 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>World Ain't Ready</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Work at a Warehouse — New Game on Roblox</title>
+    <meta name="description" content="New game: Work at a Warehouse — now on Roblox." />
+    <meta name="theme-color" content="#e2241c" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://worldaintready.com/" />
+    <meta property="og:title" content="Work at a Warehouse — New Game on Roblox" />
+    <meta property="og:description" content="New game. Work at a Warehouse — now on Roblox." />
+    <meta property="og:image" content="https://worldaintready.com/assets/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;900&display=swap" rel="stylesheet" />
+
     <style>
-      html {
-        background-color: black;
-        width: 100vw;
-        height: 100vh;
+      :root {
+        --bg: #e2241c;
+        --bat: #000000;
+        --ink: #ffffff;
+        --ink-dim: rgba(255, 255, 255, 0.72);
+        --badge: #000000;
+        --sub: "Montserrat", -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+
       body {
-        background: url("./bg.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
         margin: 0;
         min-height: 100vh;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
       }
-      .apps {
+
+      .poster {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100svh;
         display: flex;
-        width: 100%;
-        padding-top: 100px;
-        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        padding: calc(48px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
+        text-align: center;
+        overflow: hidden;
       }
-      .coming {
-        justify-self: center;
-        margin-top: 50px;
-      }
-      .tag {
-        justify-self: center;
+
+      /* scattered bats. Each <i> keeps the old flake's box; the bat is centered on it. */
+      .bats { position: absolute; inset: 0; pointer-events: none; }
+      .bats i {
         position: absolute;
+        width: var(--s, 22px);
+        height: calc(var(--s, 22px) * 1.5);
+        transform: rotate(var(--r, 0deg));
+      }
+      .bats i::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: calc(var(--s, 22px) * 3.2);
+        aspect-ratio: 100 / 44;
+        transform: translate(-50%, -50%);
+        background: var(--bat);
+        -webkit-mask: var(--shape) center / contain no-repeat;
+        mask: var(--shape) center / contain no-repeat;
+      }
+      /* five bat shapes (spread, raised, drooping, compact, banking), each with its own opacity */
+      .bats i.b0::before { --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 44'%3E%3Cpath d='M50 16L47 9L45 16C36 14 22 8 2 10C8 14 10 20 9 26C14 22 20 23 22 29C26 24 32 25 34 32C38 28 43 30 46 36L50 42L54 36C57 30 62 28 66 32C68 25 74 24 78 29C80 23 86 22 91 26C90 20 92 14 98 10C78 8 64 14 55 16L53 9Z'/%3E%3C/svg%3E"); opacity: 0.6; }
+      .bats i.b1::before { --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 44'%3E%3Cpath d='M50 20L47 14L46 22C36 18 20 10 8 2C12 10 12 16 10 22C16 20 22 22 24 28C28 24 34 26 36 32C40 30 44 32 46 36L50 42L54 36C56 32 60 30 64 32C66 26 72 24 76 28C78 22 84 20 90 22C88 16 88 10 92 2C80 10 64 18 54 22L53 14Z'/%3E%3C/svg%3E"); opacity: 0.85; }
+      .bats i.b2::before { --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 44'%3E%3Cpath d='M50 10L47 3L45 10C36 10 20 14 4 32C10 30 14 32 16 38C20 34 26 34 28 40C32 34 38 32 42 36C44 30 46 28 48 30L50 34L52 30C54 28 56 30 58 36C62 32 68 34 72 40C74 34 80 34 84 38C86 32 90 30 96 32C80 14 64 10 55 10L53 3Z'/%3E%3C/svg%3E"); opacity: 0.4; }
+      .bats i.b3::before { --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 44'%3E%3Cpath d='M50 14L47 7L45 14C38 12 28 12 16 18C20 22 20 28 18 32C24 29 30 30 32 34C36 30 42 30 46 34L50 40L54 34C58 30 64 30 68 34C70 30 76 29 82 32C80 28 80 22 84 18C72 12 62 12 55 14L53 7Z'/%3E%3C/svg%3E"); opacity: 0.7; }
+      .bats i.b4::before { --shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 44'%3E%3Cpath d='M50 16L47 9L45 17C36 14 22 6 8 2C12 10 12 16 10 22C16 20 22 22 24 28C28 24 34 26 36 32C40 30 44 32 46 36L50 42L52 34C54 30 56 30 58 36C62 32 68 34 72 40C74 34 80 34 84 38C86 32 90 30 96 32C80 16 64 12 55 16L53 9Z'/%3E%3C/svg%3E"); opacity: 0.5; }
+
+      /* Headline font: Wolves Vs Monster Slant. Swap assets/fonts/header.woff to change it. */
+      @font-face {
+        font-family: "Header";
+        src: url("./assets/fonts/header.woff") format("woff");
+        font-weight: 100 900; /* single face — stops the browser faking extra bold */
+        font-display: swap;
+      }
+
+      /* Game-title font: VEXINOM. Swap assets/fonts/title.woff to change it. */
+      @font-face {
+        font-family: "Title";
+        src: url("./assets/fonts/title.woff") format("woff");
+        font-weight: 100 900;
+        font-display: swap;
+      }
+
+      h1 {
+        position: relative;
+        margin: 0;
+        font-family: "Header", var(--font);
+        font-size: clamp(28px, 9vw, 76px);
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+
+      .sub {
+        position: relative;
+        margin: -12px 0 0;
+        font-family: var(--sub);
+        font-weight: 500;
+        font-size: clamp(19px, 5.2vw, 28px);
+        line-height: 1.35;
+      }
+      .sub strong { display: block; font-family: "Title", var(--sub); font-weight: 400; font-size: 1.2em; letter-spacing: 0.02em; margin-bottom: 4px; }
+
+      /* ROBLOX wordmark, with the first O as the tilted-square mark */
+      .rbx {
+        display: inline-flex;
+        align-items: center;
+        font-family: var(--sub);
+        font-weight: 900;
+        font-size: 1.15em;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        vertical-align: -0.12em;
+        white-space: nowrap;
+      }
+      .rbx svg { width: 0.8em; height: 0.8em; margin: 0 0.04em; }
+
+      .thumb {
+        position: relative;
+        display: block;
+        width: min(100%, 620px);
+        aspect-ratio: 1408 / 768;
+        border-radius: clamp(18px, 5vw, 32px);
+        overflow: hidden;
+        box-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.18),
+          0 24px 60px rgba(90, 0, 0, 0.45);
+        transition: transform 0.25s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .thumb:hover { transform: scale(1.015); }
+      .thumb:active { transform: scale(0.985); }
+
+      .dare {
+        position: relative;
+        font-family: var(--sub);
+        font-weight: 600;
+        font-style: italic;
+        font-size: clamp(20px, 5.4vw, 30px);
+        letter-spacing: 0.01em;
+        color: var(--ink);
+        text-decoration: none;
+        text-shadow: 0 2px 12px rgba(60, 0, 0, 0.45);
+      }
+      a.dare[href]:hover { text-decoration: underline; text-underline-offset: 6px; }
+
+      /* "Play on Roblox" badge, modeled on the App Store badge (currently unused) */
+      .badge {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        height: 56px;
+        padding: 0 20px 0 16px;
+        background: var(--badge);
+        color: #fff;
+        border: 1.5px solid #a6a6a6;
+        border-radius: 12px;
+        text-decoration: none;
+        text-align: left;
+        transition: transform 0.2s ease;
+      }
+      .badge:active { transform: scale(0.97); }
+      .badge svg { width: 30px; height: 30px; flex: none; }
+      .badge small { display: block; font-size: 12px; font-weight: 500; line-height: 1; letter-spacing: 0.01em; }
+      .badge strong { display: block; font-size: 24px; font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; }
+
+      [aria-disabled="true"] { pointer-events: none; }
+
+      /* skeleton that strolls along the bottom now and then */
+      .lane {
+        position: fixed;
+        left: 0;
+        right: 0;
         bottom: 0;
+        height: 140px;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 5;
+      }
+      .walker {
+        position: absolute;
+        bottom: calc(6px + env(safe-area-inset-bottom));
+        left: 0;
+        height: clamp(80px, 16vw, 120px);
+        aspect-ratio: 60 / 110;
+        transform: translateX(-140px);
+      }
+      .walker.go { animation: stroll var(--walk, 11s) linear forwards; }
+      .walker > svg, .walker > img { height: 100%; width: auto; display: block; }
+      @keyframes stroll { to { transform: translateX(calc(100vw + 20px)); } }
+
+      .skel { overflow: visible; animation: bob 0.45s ease-in-out infinite alternate; }
+      .skel .limb { transform-box: view-box; animation: swing 0.9s ease-in-out infinite alternate; }
+      .skel .arm { transform-origin: 30px 26px; }
+      .skel .leg { transform-origin: 30px 62px; }
+      .skel .back { animation-delay: -0.9s; opacity: 0.55; }
+      @keyframes swing { from { transform: rotate(24deg); } to { transform: rotate(-24deg); } }
+      @keyframes bob { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+
+      footer {
+        position: relative;
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--ink-dim);
+        line-height: 1.5;
       }
 
-      .apps img {
-        height: 25vh;
-        width: auto;
+      @media (prefers-reduced-motion: reduce) {
+        .thumb, .badge { transition: none; }
+        .lane { display: none; }
       }
-
-      .coming img {
-        height: 10vh;
-        width: auto;
-      }
-
-      .tag img {
-        height: 10vh;
-        width: auto;
-      }
-
-
     </style>
   </head>
   <body>
-    <div class="apps">
-      <img height="300" src="./bibl.png" alt="" />
-      <img height="300" src="./procratus.png" alt="" />
-    </div>
-    <div class="coming">
-      <img height="100" src="./coming.png" alt="" />
-    </div>
-    <div class="tag">
-      <img height="100" src="./trisphere.png" alt="" />
-    </div>
+    <main id="posters"></main>
+
+    <div class="lane" aria-hidden="true"><div class="walker" id="walker"></div></div>
+
+    <template id="skeleton">
+      <svg class="skel" viewBox="0 0 60 110" fill="none" stroke="#f4efe6" stroke-linecap="round" stroke-linejoin="round">
+        <g class="limb arm back"><polyline points="30,26 30,42 34,56" stroke-width="3" /></g>
+        <g class="limb leg back"><polyline points="30,62 30,82 29,102 35,102" stroke-width="3.5" /></g>
+        <line x1="30" y1="21" x2="30" y2="62" stroke-width="3" stroke-dasharray="3 1.6" />
+        <path d="M22 30 Q30 26 38 30 M21 36 Q30 32 39 36 M22 42 Q30 38 38 42 M24 48 Q30 45 36 48" stroke-width="2.2" />
+        <path d="M23 60 H37 L34 66 H26 Z" fill="#f4efe6" stroke-width="1.5" />
+        <circle cx="32" cy="11" r="9" fill="#f4efe6" stroke-width="0" />
+        <path d="M27 18 H39 V22 H29 Z" fill="#f4efe6" stroke-width="0" />
+        <circle cx="36" cy="10" r="2.4" fill="#1a0000" stroke-width="0" />
+        <path d="M37.5 15 l1.5 -1.5 l1 1.5" stroke="#1a0000" stroke-width="1" />
+        <g class="limb leg front"><polyline points="30,62 30,82 29,102 35,102" stroke-width="3.5" /></g>
+        <g class="limb arm front"><polyline points="30,26 30,42 34,56" stroke-width="3" /></g>
+      </svg>
+    </template>
+
+    <template id="roblox-logo">
+      <!-- Roblox mark: tilted square with a square cut-out -->
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path fill="#fff" fill-rule="evenodd" transform="rotate(-15 50 50)"
+              d="M8 8h84v84H8z M38 38v24h24V38z" />
+      </svg>
+    </template>
+
+    <script>
+      // ---- One entry per game. url = the Roblox share link (roblox.com/games/<placeId> or roblox.com/share?...). ----
+      const GAMES = [
+        {
+          title: "Work at a Warehouse",
+          image: "./assets/anomaly.jpg",
+          url: "",
+          headline: "NEW GAME",
+          color: "#e2241c",
+          bats: "#000000",
+        },
+      ];
+      // ------------------------------------------------------------------------------------------------------------
+
+      // bat positions as % of the poster, size px, rotation deg
+      const BATS = [
+        [6, 9, 18, -20], [88, 6, 24, 25], [18, 30, 14, 40], [92, 34, 20, -10],
+        [4, 58, 26, 15], [84, 62, 16, 60], [12, 86, 20, -35], [90, 90, 26, 10],
+        [48, 4, 12, 70], [70, 22, 12, -50], [28, 70, 12, 30], [60, 94, 14, -15],
+        [28, 12, 16, -30], [76, 12, 20, 35], [2, 40, 14, -5], [96, 48, 16, 20],
+        [22, 48, 18, -45], [78, 46, 14, 15], [34, 92, 18, 25], [8, 72, 16, -10],
+        [96, 74, 20, -25], [74, 84, 16, 40], [40, 2, 14, 10], [58, 12, 12, -20],
+      ];
+
+      // Walking skeleton. Leave empty to use the built-in drawing, or set to e.g. "./assets/skeleton.gif".
+      const SKELETON_GIF = "";
+      const SKELETON_EVERY_MS = 120000; // appears once at a random moment in every 2-minute window
+
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+      const logo = document.getElementById("roblox-logo").innerHTML;
+
+      document.getElementById("posters").innerHTML = GAMES.map((g) => {
+        const live = Boolean(g.url);
+        const link = live
+          ? `href="${esc(g.url)}" target="_blank" rel="noopener"`
+          : `aria-disabled="true"`;
+        const bits = BATS.map(([x, y, s, r], i) => `<i class="b${i % 5}" style="left:${x}%;top:${y}%;--s:${s}px;--r:${r}deg"></i>`).join("");
+        return `
+          <section class="poster" style="--bg:${esc(g.color)};--bat:${esc(g.bats)};background:var(--bg)">
+            <div class="bats">${bits}</div>
+            <h1>${esc(g.headline)}</h1>
+            <p class="sub"><strong>${esc(g.title)}</strong>now on <span class="rbx" role="img" aria-label="Roblox">R${logo}BLOX</span></p>
+            <a class="thumb" ${link} aria-label="Play ${esc(g.title)} on Roblox">
+              <img src="${esc(g.image)}" alt="${esc(g.title)}" width="1408" height="768" />
+            </a>
+            <a class="dare" ${link}>Play if you dare...</a>
+            <footer>World Ain't Ready · Not affiliated with Roblox Corporation.</footer>
+          </section>`;
+      }).join("");
+
+      const walker = document.getElementById("walker");
+      walker.innerHTML = SKELETON_GIF
+        ? `<img src="${esc(SKELETON_GIF)}" alt="" />`
+        : document.getElementById("skeleton").innerHTML;
+
+      function walk() {
+        walker.classList.remove("go");
+        void walker.offsetWidth; // restart the animation
+        walker.classList.add("go");
+      }
+      function scheduleWindow() {
+        setTimeout(walk, Math.random() * SKELETON_EVERY_MS);
+        setTimeout(scheduleWindow, SKELETON_EVERY_MS);
+      }
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        // add ?skeleton to the URL to see it right away
+        if (new URLSearchParams(location.search).has("skeleton")) walk();
+        scheduleWindow();
+      }
+    </script>
   </body>
 </html>
