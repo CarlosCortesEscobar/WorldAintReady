@@ -209,6 +209,13 @@
       .thumb:hover { transform: scale(1.015); }
       .thumb:active { transform: scale(0.985); }
 
+      /* headline, subtitle and stat card are links too, without looking like links */
+      a.plain { color: inherit; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 28px; -webkit-tap-highlight-color: transparent; }
+      a.plain.stats { display: grid; gap: 14px 18px; }
+      @media (min-width: 900px) { a.plain.stats { gap: 18px; } }
+      a.plain:active { opacity: 0.85; }
+      a.plain.stats[hidden] { display: none; }
+
       .dare {
         position: relative;
         font-family: var(--sub);
@@ -329,7 +336,7 @@
         {
           title: "Work at a Warehouse",
           image: "./assets/anomaly.jpg",
-          url: "",
+          url: "https://www.roblox.com/games/109920009011632/Work-at-a-Warehouse",
           placeId: "", // only needed if url is a share link without /games/<id> in it
           headline: "NEW GAME",
           color: "#e2241c",
@@ -364,18 +371,20 @@
         return `
           <section class="poster" style="--bg:${esc(g.color)};--bat:${esc(g.bats)};background:var(--bg)">
             <div class="bats">${bits}</div>
-            <h1>${esc(g.headline)}</h1>
-            <p class="sub"><strong>${esc(g.title)}</strong>now on <span class="rbx" role="img" aria-label="Roblox">R${logo}BLOX</span></p>
+            <a class="plain" ${link}>
+              <h1>${esc(g.headline)}</h1>
+              <p class="sub"><strong>${esc(g.title)}</strong>now on <span class="rbx" role="img" aria-label="Roblox">R${logo}BLOX</span></p>
+            </a>
             <div class="stage">
               <a class="thumb" ${link} aria-label="Play ${esc(g.title)} on Roblox">
                 <img src="${esc(g.image)}" alt="${esc(g.title)}" width="1408" height="768" />
               </a>
-              <div class="stats" data-stats hidden>
+              <a class="stats plain" data-stats hidden ${link}>
                 <div class="stat live"><b><i class="pulse"></i><em data-k="playing">–</em></b><span>Playing right now</span></div>
                 <div class="stat"><b data-k="visits">–</b><span>Visits</span></div>
                 <div class="stat"><b data-k="liked">–</b><span>Liked it</span></div>
                 <div class="stat"><b data-k="favorites">–</b><span>Favorites</span></div>
-              </div>
+              </a>
             </div>
             <a class="dare" ${link}>Play if you dare...</a>
             <footer>World Ain't Ready · Not affiliated with Roblox Corporation.</footer>
@@ -386,7 +395,13 @@
       const fmtFull = new Intl.NumberFormat("en-US");
       const fmtShort = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 
+      // Only show stats once they're worth bragging about.
+      const MIN_VISITS_TO_SHOW_CARD = 1000;
+      const MIN_PLAYING_TO_SHOW_LIVE = 10;
+
       function fillStats(card, d) {
+        if (d.visits < MIN_VISITS_TO_SHOW_CARD) { card.hidden = true; return; }
+        card.querySelector(".stat.live").hidden = d.playing < MIN_PLAYING_TO_SHOW_LIVE;
         const set = (k, v) => (card.querySelector(`[data-k="${k}"]`).textContent = v);
         set("playing", fmtFull.format(d.playing));
         set("visits", fmtShort.format(d.visits));
